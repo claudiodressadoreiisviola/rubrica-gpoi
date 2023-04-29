@@ -9,13 +9,14 @@ set_error_handler("errorHandler::handleError");
 
 class Email
 {
-    private Connect $db;
-    private PDO $conn;
+    private Database $database;
+    private PDO $connection;
 
     public function __construct()
     {
-        $this->db = new Connect;
-        $this->conn = $this->db->getConnection();
+        // Inizializzo il database
+        $this->database = new Database;
+        $this->connection = $this->database->getConnection();
     }
 
     public function ottieniEmail($id)
@@ -26,7 +27,7 @@ class Email
                 INNER JOIN tipo t ON t.id = e.tipo
                 WHERE e.id = :id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -41,7 +42,7 @@ class Email
                 INNER JOIN contatto c ON c.id = e.contatto 
                 INNER JOIN tipo t ON t.id = e.tipo";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
