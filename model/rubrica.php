@@ -9,12 +9,12 @@ set_error_handler("errorHandler::handleError");
 
 class Rubrica
 {
-    private Connect $db;
+    private Database $db;
     private PDO $conn;
 
     public function __construct()
     {
-        $this->db = new Connect;
+        $this->db = new Database;
         $this->conn = $this->db->getConnection();
     }
 
