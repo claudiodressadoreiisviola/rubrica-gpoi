@@ -5,10 +5,10 @@ class Database
 
     public function __construct()
     {
-        $host = "gruppo1.violamarchesini.it";
+        $host = "claudiodressadore.net";
         $port = "3306";
-        $db   = "ecommerce";
-        $user = "ecommerce";
+        $db   = "rubrica";
+        $user = "rubrica";
         $pass = "sld63u890ww09f4";
 
         try {
