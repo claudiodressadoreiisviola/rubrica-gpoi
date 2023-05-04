@@ -9,13 +9,14 @@ set_error_handler("errorHandler::handleError");
 
 class Telefono
 {
-    private Database $db;
-    private PDO $conn;
+    private Database $database;
+    private PDO $connection;
 
     public function __construct()
     {
-        $this->db = new Database;
-        $this->conn = $this->db->getConnection();
+        // Inizializzo il database
+        $this->database = new Database;
+        $this->connection = $this->database->getConnection();
     }
 
     public function ottieniTelefono($id)
@@ -26,7 +27,7 @@ class Telefono
                 INNER JOIN tipo t2 ON t2.id = t.tipo 
                 WHERE t.id = :id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -41,7 +42,7 @@ class Telefono
                 INNER JOIN contatto c ON c.id = t.contatto 
                 INNER JOIN tipo t2 ON t2.id = t.tipo";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();

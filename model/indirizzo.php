@@ -9,13 +9,14 @@ set_error_handler("errorHandler::handleError");
 
 class Indirizzo
 {
-    private Database $db;
-    private PDO $conn;
+    private Database $database;
+    private PDO $connection;
 
     public function __construct()
     {
-        $this->db = new Database;
-        $this->conn = $this->db->getConnection();
+        // Inizializzo il database
+        $this->database = new Database;
+        $this->connection = $this->database->getConnection();
     }
 
     public function ottieniIndirizzo($id)
@@ -26,7 +27,7 @@ class Indirizzo
                 INNER JOIN tipo t ON t.id = i.tipo 
                 WHERE i.id = :id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -41,7 +42,7 @@ class Indirizzo
                 INNER JOIN contatto c ON c.id = i.contatto 
                 INNER JOIN tipo t ON t.id = i.tipo";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();

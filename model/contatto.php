@@ -9,13 +9,14 @@ set_error_handler("errorHandler::handleError");
 
 class Contatto
 {
-    private Database $db;
-    private PDO $conn;
+    private Database $database;
+    private PDO $connection;
 
     public function __construct()
     {
-        $this->db = new Database;
-        $this->conn = $this->db->getConnection();
+        // Inizializzo il database
+        $this->database = new Database;
+        $this->connection = $this->database->getConnection();
     }
 
     public function ottieniContatto($id)
@@ -24,7 +25,7 @@ class Contatto
                 FROM contatto 
                 WHERE id = :id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -37,7 +38,7 @@ class Contatto
         $sql = "SELECT id, nome, cognome, sito_web 
                 FROM contatto ";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
