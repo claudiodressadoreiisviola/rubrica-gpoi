@@ -13,7 +13,7 @@ set_error_handler("errorHandler::handleError");
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (empty($data->email) || empty($data->password)) {
+if (empty($data->email) || empty($data->password) ||) {
     http_response_code(400);
     echo json_encode(array("message" => "Informazioni inviate non corrette o insufficienti, contattare l'amministratore per maggiori informazioni"));
     die();
@@ -22,7 +22,7 @@ if (empty($data->email) || empty($data->password)) {
 $utente = new Utente();
 
 try {
-    $utente->login($data->email, $data->password);
+    $utente->registra($data->email, $data->password);
 
     setcookie("sessione", $this->SessionID, time()+60*60*24*30, '/');
 } catch (Exception $e) {

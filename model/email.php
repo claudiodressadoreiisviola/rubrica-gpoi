@@ -21,26 +21,11 @@ class Email
 
     public function ottieniEmail($id)
     {
-        $sql = "SELECT e.id, c.nome, c.cognome, c.sito_web, e.indirizzo, t.descrizione  
+        $sql = "SELECT e.indirizzo, t.descrizione  
                 FROM email e 
                 INNER JOIN contatto c ON c.id = e.contatto 
                 INNER JOIN tipo t ON t.id = e.tipo
-                WHERE e.id = :id";
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function ottieniTutteEmail($id)
-    {
-        $sql = "SELECT e.id, c.nome, c.cognome, c.sito_web, e.indirizzo, t.descrizione  
-                FROM email e 
-                INNER JOIN contatto c ON c.id = e.contatto 
-                INNER JOIN tipo t ON t.id = e.tipo";
+                WHERE c.id = :id";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -48,6 +33,6 @@ class Email
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }    
+    }
 }
 ?>

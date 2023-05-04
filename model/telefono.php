@@ -21,7 +21,7 @@ class Telefono
 
     public function ottieniTelefono($id)
     {
-        $sql = "SELECT t.id, c.nome, c.cognome, c.sito_web, t.numero, t.cc, t2.descrizione
+        $sql = "SELECT t.id, c.nome, c.cognome, t.numero, t.cc, t2.descrizione
                 FROM telefono t 
                 INNER JOIN contatto c ON c.id = t.contatto 
                 INNER JOIN tipo t2 ON t2.id = t.tipo 
@@ -32,22 +32,7 @@ class Telefono
 
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function ottieniTuttiTelefoni($id)
-    {
-        $sql = "SELECT t.id, c.nome, c.cognome, c.sito_web, t.numero, t.cc, t2.descrizione
-                FROM telefono t 
-                INNER JOIN contatto c ON c.id = t.contatto 
-                INNER JOIN tipo t2 ON t2.id = t.tipo";
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }    
+    }  
 }
 ?>

@@ -21,7 +21,7 @@ class Indirizzo
 
     public function ottieniIndirizzo($id)
     {
-        $sql = "SELECT i.id, c.nome, c.cognome, c.sito_web, i.comune, i.provincia, i.codice_postale, i.tipo_via, i.via, t.descrizione  
+        $sql = "SELECT i.id, c.nome, c.cognome, i.comune, i.provincia, i.codice_postale, i.tipo_via, i.via, t.descrizione  
                 FROM indirizzo i 
                 INNER JOIN contatto c ON c.id = i.contatto 
                 INNER JOIN tipo t ON t.id = i.tipo 
@@ -32,22 +32,7 @@ class Indirizzo
 
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function ottieniTuttiIndirizzi($id)
-    {
-        $sql = "SELECT i.id, c.nome, c.cognome, c.sito_web, i.comune, i.provincia, i.codice_postale, i.tipo_via, i.via, t.descrizione  
-                FROM indirizzo i 
-                INNER JOIN contatto c ON c.id = i.contatto 
-                INNER JOIN tipo t ON t.id = i.tipo";
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }    
+    }  
 }
 ?>

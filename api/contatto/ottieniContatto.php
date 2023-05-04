@@ -20,20 +20,16 @@ if (!isset($_GET['id']) || empty($id = $_GET['id']))
 }
 
 $contatto = new Contatto();
+
 //qui result è un array
 $result = $contatto->ottieniContatto($id);
-//adesso result è un oggetto
-$result = (json_decode(json_encode($result)));
 
-if ((int)$result->id >0)
+// Se non ho alcun contatto con quell'ID
+if ($result == false)
 {
-
-    echo json_encode($result, JSON_PRETTY_PRINT);
-    die();
+    echo json_encode(array("message" => "Nessun utente trovato con l'ID corrispondente"), JSON_PRETTY_PRINT);
 }
 else
 {
-    echo json_encode(array("Message" => "No record"));
-    die();
+    echo json_encode($result, JSON_PRETTY_PRINT);
 }
-?>
