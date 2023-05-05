@@ -20,18 +20,10 @@ if (!isset($_GET['id']) || empty($id = $_GET['id']))
 }
 
 $contatto = new Contatto();
+
 $result = $contatto->ottieniTuttiContatti($id);
 
-$contatti = array();
-for ($i = 0; $i < (count($result)); $i++) {
-    $contact = array(
-        "id" =>  $result[$i]['id'],
-        "cognome" => $result[$i]["cognome"],
-        "nome" => $result[$i]["nome"],
-        "sito_web" => $result[$i]["sito_web"],
-    );
-    array_push($contatti, $contact);
-}
+$result = (json_decode(json_encode($result)));
 
-echo json_encode($contatti);
+echo json_encode($result);
 ?>

@@ -24,6 +24,8 @@ $email = new Email();
 //qui result è un array
 $result = $email->ottieniEmail($id);
 
+$result = (json_decode(json_encode($result)));
+
 if ($result == false)
 {
     echo json_encode(array("message" => "Nessun record trovato"), JSON_PRETTY_PRINT);

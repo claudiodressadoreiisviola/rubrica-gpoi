@@ -20,8 +20,10 @@ if (!isset($_GET['id']) || empty($id = $_GET['id']))
 }
 
 $telefono = new Telefono();
+
 //qui result è un array
 $result = $telefono->ottieniTelefono($id);
+
 //adesso result è un oggetto
 $result = (json_decode(json_encode($result)));
 

@@ -20,8 +20,10 @@ if (!isset($_GET['id']) || empty($id = $_GET['id']))
 }
 
 $indirizzo = new Indirizzo();
+
 //qui result è un array
 $result = $indirizzo->ottieniIndirizzo($id);
+
 //adesso result è un oggetto
 $result = (json_decode(json_encode($result)));
 

@@ -48,7 +48,9 @@ Class Utente
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result[0]["id"];
     }
 
     public function registra($email, $password, $nome, $cognome, $sito_web)

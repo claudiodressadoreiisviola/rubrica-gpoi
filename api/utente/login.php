@@ -22,7 +22,7 @@ if (empty($data->email) || empty($data->password)) {
 $utente = new Utente();
 
 try {
-    $utente->login($data->email, $data->password);
+    echo json_encode(array("ID" => $utente->login($data->email, $data->password)));
 
     setcookie("sessione", $this->SessionID, time()+60*60*24*30, '/');
 } catch (Exception $e) {
