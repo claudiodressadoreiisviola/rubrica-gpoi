@@ -31,14 +31,16 @@ Class Sessione
         FROM `utente`
         WHERE `utente`.`email` = :email AND `utente`.`password` = :password";
 
-        if ($stmt->rowCount() == 0)
+$stmt = $this->connection->prepare($sql);
+$stmt->bindValue(':email', $email, PDO::PARAM_STR);
+$stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        
+if ($stmt->rowCount() == 0)
         {
             throw new Exception("Credenziali sbagliate", 1);
         }
 
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+      
 
         $stmt->execute();
 

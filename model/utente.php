@@ -30,12 +30,55 @@ Class Utente
                 INNER JOIN contatto c ON c.id=u.contatto 
                 WHERE u.id = :id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function registrazione($email,$password){
+        $sql = sprintf("INSERT INTO utente (email,password)
+        VALUES (:email,:password)");
+ 
+     $stmt = $this->connection->prepare($sql);
+     $stmt->bindValue(':nome', $email, PDO::PARAM_STR);
+     $stmt->bindValue(':cognome', $password, PDO::PARAM_STR);
+ 
+ if ($stmt->execute())
+ {
+ return $stmt->rowCount();
+ }
+ else return "problemi";
+    }
+    public function eliminaUtente($id){
+     
+        $utente = $this->ottieniUtente($id);
+    
+        if ($utente == null)
+            return false;
+
+        $sql=sprintf("UPDATE utente SET attivo=0 WHERE id=:id");
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        if ($stmt->execute())
+    {
+    return 1;
+    }
+    else return "problemi";
+    }
+
+    public function modificaPassword($id,$newPassword){
+
+        $sql=sprintf("UPDATE utente SET password=:newPassword WHERE id=:id");
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':newPassword', $newPassword, PDO::PARAM_STR);
+        if ($stmt->execute())
+    {
+    return 1;
+    }
+    else return "problemi";
     }
 }
 ?>
