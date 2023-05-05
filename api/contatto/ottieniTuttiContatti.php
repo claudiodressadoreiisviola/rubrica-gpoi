@@ -23,7 +23,5 @@ $contatto = new Contatto();
 
 $result = $contatto->ottieniTuttiContatti($id);
 
-$result = (json_decode(json_encode($result)));
-
-echo json_encode($result);
+echo json_encode(array("contatti" => $result));
 ?>
